@@ -1,0 +1,16 @@
+<resources>
+
+
+
+  <style name="SmallText" parent="TextAppearance.AppCompat">
+      <item name="android:textColor">@color/blue_gray_200</item>
+      <item name="android:fontFamily">bold</item>
+      <item name="android:textSize">14sp</item>
+  </style>
+    <style name="FabMargin">
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+</resources>

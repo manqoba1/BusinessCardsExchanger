@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="library-2.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cat.ppicas.customtypeface/library/2.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cat.ppicas.customtypeface/library/2.0.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cat.ppicas.customtypeface/library/2.0.0/ff61e834641500d5df10f5db14b3bd078708ecc1/library-2.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

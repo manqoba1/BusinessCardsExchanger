@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\BusinessCardsExchanger\bcelibrary\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="198098f80683a14048b58336eb67d46ea73ac060">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-b433687b122aaa1e9e6c61d19ec8ab686ae956a9.jar" />
+    </item>
+
+</items>
