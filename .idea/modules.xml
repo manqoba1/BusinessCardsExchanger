@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/BusinessCardsExchanger.iml" filepath="$PROJECT_DIR$/BusinessCardsExchanger.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bcelibrary/bcelibrary.iml" filepath="$PROJECT_DIR$/bcelibrary/bcelibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>
   </component>
 </project>

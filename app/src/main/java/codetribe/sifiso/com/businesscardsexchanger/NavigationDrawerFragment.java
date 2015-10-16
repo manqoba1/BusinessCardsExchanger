@@ -2,10 +2,9 @@ package codetribe.sifiso.com.businesscardsexchanger;
 
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,8 +51,8 @@ public class NavigationDrawerFragment extends Fragment {
 
     public static List<DrawerItem> getDrawerData() {
         List<DrawerItem> drawerItems = new ArrayList<>();
-        int[] icons = {R.mipmap.ic_add_contact, R.mipmap.ic_history_white_48dp};
-        String[] titles = {mCtx.getString(R.string.new_contact), mCtx.getString(R.string.contact_list)};
+        int[] icons = {android.R.drawable.ic_menu_gallery};
+        String[] titles = {mCtx.getString(R.string.instagram_list)};
         for (int i = 0; i < icons.length && i < titles.length; i++) {
             DrawerItem item = new DrawerItem(icons[i], titles[i]);
             drawerItems.add(item);

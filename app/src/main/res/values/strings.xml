@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BusinessCardsExchanger</string>
+    <string name="app_name">The Gallery</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -9,4 +9,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="title_activity_main_land">The Gallery Locations</string>
+    <string name="title_activity_gallery_list">Image Gallery</string>
+    <string name="title_activity_full_view">FullViewActivity</string>
 </resources>

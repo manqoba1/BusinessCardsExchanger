@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="android:colorPrimary">@color/cyan_500</item>
         <item name="android:colorPrimaryDark">@color/cyan_700</item>
-        <item name="android:colorAccent">@color/grey_500</item>
+        <item name="android:colorAccent">@color/pink_300</item>
         <item name="android:textColor">@color/grey_500</item>
         <item name="android:navigationBarColor">@color/cyan_700</item>
         <item name="android:windowTranslucentStatus">true</item>

@@ -1,6 +1,8 @@
 package codetribe.sifiso.com.businesscardsexchanger;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -8,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -19,15 +20,15 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import codetribe.sifiso.com.bcelibrary.Models.CaptionModel;
 import codetribe.sifiso.com.bcelibrary.fragment.ContactListFragment;
 import codetribe.sifiso.com.bcelibrary.fragment.NewContactFragment;
-import codetribe.sifiso.com.bcelibrary.tab.SlidingTabLayout;
 import codetribe.sifiso.com.bcelibrary.utils.PagerFragment;
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
-public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerFragmentListener, MaterialTabListener {
+public class MainActivity extends AppCompatActivity implements ContactListFragment.ContactListFragmentListener, NavigationDrawerFragment.NavigationDrawerFragmentListener, MaterialTabListener {
     Toolbar toolbar;
     ViewPager mPager;
     MaterialTabHost mTaps;
@@ -37,28 +38,33 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     NewContactFragment newContactFragment;
     PagerAdapter pagerAdapter;
 
+
+    private Context mCtx;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_activity);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         drawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUpDrawer(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
-
+        mCtx = getApplicationContext();
         mPager = (ViewPager) findViewById(R.id.mPager);
         mTaps = (MaterialTabHost) this.findViewById(R.id.materialTabHost);
-
+        //setLocationMap();
         build();
+
     }
+
 
     public void build() {
         pagerFragmentList = new ArrayList<>();
         newContactFragment = new NewContactFragment();
         contactListFragment = new ContactListFragment();
-        pagerFragmentList.add(newContactFragment);
+        // pagerFragmentList.add(newContactFragment);
+
         pagerFragmentList.add(contactListFragment);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
@@ -129,7 +135,8 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh) {
+            //getLocations();
             return true;
         }
 
@@ -139,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     @Override
     public void onItemClick(int position) {
         mPager.setCurrentItem(position);
-        setTitle(pagerAdapter.tabText[position]);
+//        setTitle(pagerAdapter.tabText[position]);
     }
 
     @Override
@@ -157,10 +164,20 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 
     }
 
+    @Override
+    public void onPassingRadius(int radius) {
+
+    }
+
+    @Override
+    public void onStartGalleryActivity(CaptionModel locationModel) {
+
+    }
+
 
     class PagerAdapter extends FragmentStatePagerAdapter {
-        public int icon[] = {R.drawable.ic_person_add_white_48dp, R.drawable.ic_history_white_48dp};
-        public String[] tabText = {getString(R.string.new_contact), getString(R.string.contact_list)};
+        public int icon[] = {android.R.drawable.ic_menu_gallery};
+        public String[] tabText = {getString(R.string.instagram_list)};
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);
@@ -187,4 +204,10 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
             return spannableString;
         }
     }
+
+    boolean isBusy;
+
+
+    static String LOG = MainActivity.class.getSimpleName();
+
 }

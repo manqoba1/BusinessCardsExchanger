@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sas_wide">20dp</dimen>
+    <dimen name="sas_wider">48dp</dimen>
+    <dimen name="mon_divider">4dp</dimen>
+    <dimen name="mon_widest">72dp</dimen>
+    <dimen name="mon_margin">16dp</dimen>
+    <dimen name="sas_padding">8dp</dimen>
+    <dimen name="minimum_margin_sides">48dip</dimen>
+    <dimen name="minimum_margin_top_bottom">24dip</dimen>
+    <dimen name="mon_padding">8dp</dimen>
+    <dimen name="mon_padding_4">4dp</dimen>
+    <dimen name="padding_top_25">25dp</dimen>
+    <dimen name="padding_top_10">10dp</dimen>
+    <dimen name="hero_image_length">110dp</dimen>
+    <dimen name="header_name">18sp</dimen>
+    <dimen name="mon_wide">24dp</dimen>
+    <dimen name="mon_wider">48dp</dimen>
+    <dimen name="app_bar_top_padding">0dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+</resources>

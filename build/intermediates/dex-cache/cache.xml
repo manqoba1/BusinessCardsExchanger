@@ -2,11 +2,228 @@
 <items version="2" >
 
     <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\BusinessCardsExchanger\bcelibrary\unspecified\jars\libs\autobahn-0.5.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="5f62bc6117f905fd37955f6e2ebd3aad68701b60">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\autobahn-0.5.0-8130906528f8c7bccb00884bf81c6642dfb42040.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="cb6fab7a71fa9ec1f483d44c5fca65ab469d8aca">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-15a2f9b5937e906284c92e8d7a626a28c20805c3.jar" />
+    </item>
+    <item
         jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\BusinessCardsExchanger\bcelibrary\unspecified\jars\classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="198098f80683a14048b58336eb67d46ea73ac060">
+        sha1="45e24bdfafb6452011ac72247e780c9d6fe8b328">
         <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-b433687b122aaa1e9e6c61d19ec8ab686ae956a9.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4a135d56554069e5d0ff80e3220e887e57146ee5">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-445dfd045e47711c083657ee7c982b573d44acd6.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\it.neokree\MaterialTabs\0.11\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="fef6aa7ea0bb2d6adf10965d0a5bb8e353517bff">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-3ab7605fdd1de1599469e806a19fda7ba5a61913.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.github.asne\asne-core\0.3.3\jars\libs\signpost-core-1.2.1.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="47d92007ca13efd47efad1af94d842ecb5066310">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\signpost-core-1.2.1.1-7dc96ba136c64ef673812827a0e7de0f596a0540.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.4\dd9eeb557650c4ad7394df23f0f5cf27a7cfc697\universal-image-loader-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="dd9eeb557650c4ad7394df23f0f5cf27a7cfc697">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.4-f62cce789ad78a3e4664f50bccdc1bef33d587d9.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\BusinessCardsExchanger\bcelibrary\unspecified\jars\libs\jackson-mapper-asl-1.9.7.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3bc2efad5ceb9e24e44f731d4282b5df3ea6d23f">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\jackson-mapper-asl-1.9.7-97c57c4e9f2f5977c8733e9699d4a4f8b92a4e90.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.github.asne\asne-core\0.3.3\jars\libs\signpost-commonshttp4-1.2.1.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1e6380adcb5808bfe13a934a2f35bfeed1adbc49">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\signpost-commonshttp4-1.2.1.1-01dec77cb7c520baef018342d12bb7a83e910059.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0124ce31248c0e8acfa2b28283c6d1a4d76e73d2">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-958fad11d9ff71a8d6dba1b516e827d8ddb64555.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-bd02ec3f7318b1091f90d9481f9715a8d443f049.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-0260cd40fc3b93d242a723afe8dfa1b7827086d3.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-cd52a8cb1ae4f9a59762baffa814a4315189b919.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\gson-2.2.4-dc40933a6123942339ba6cf6d4187f1e3db5994b.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\BusinessCardsExchanger\bcelibrary\unspecified\jars\libs\khandroid-httpclient-4.2.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="833efd491363b9391340d073bff8d95c85ff7733">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\khandroid-httpclient-4.2.3-7bc6d52b876d20dbaf06447dc321c9c2eba5d89a.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-247f174aec3bee0355c58364f12030575c7cb089.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\BusinessCardsExchanger\library\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="03850d84bcde8c001686f59a23ee23a294da0b0b">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-d6b0d5886613fc6749df0f9a1a08ac0f25aebc68.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\library-2.4.0-99927a345e127159f4a01a712f2928f30636ba48.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\.gradle\caches\modules-2\files-2.1\joda-time\joda-time\2.3\56498efd17752898cfcc3868c1b6211a07b12b8f\joda-time-2.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="56498efd17752898cfcc3868c1b6211a07b12b8f">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\joda-time-2.3-5871d5a6521e0b91a2dabb484c9c6005113d4021.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c756d14e99d39471e99013a1e8fd2f3813ed42bf">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-9a96a6cde26d078ddcc16a393469e991f203e8da.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.mcxiaoke.volley\library-aar\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="cf9754bfa8484f88f26e45d28fe298daa544d4f0">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-d1072273b42e1daae2f14e48ebef4e2d4bfc71b7.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-d96308dd4cc3550645e8110219a716d95fd8462a.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\BusinessCardsExchanger\bcelibrary\unspecified\jars\libs\jackson-core-2.1.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f6c3aed1cdfa21b5c1737c915186ea93a95a58bd">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\jackson-core-2.1.3-64925c59f85beb5620642a7719903429a1278cce.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\androidsetup\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-258b9c79d973a3cabc045eccf71495c655ad58c6.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.3.2\d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27\picasso-2.3.2.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\picasso-2.3.2-3c2134be14457ca21220551158fac3b318fe4571.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\cat.ppicas.customtypeface\library\2.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="145bc766e234871ae5a23dbfde9416de1a7c4359">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-3e3f12b16f3f7bee277b50d6e3693ba48deaa9e3.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.github.asne\asne-instagram\0.3.3\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c1e697ac9f74ff48b01493600278aa9f0a4ef774">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-96b567bc2129f3b59f515aebc452ea3451f82ef2.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-41cffdca551bc6161916db3dde6fd06a21a2f578.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\1.2.2\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="803c4c913beac8f7980d680c725a40835d1d7c77">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-af0f969793af52d4cc5632cb33a6509afef20fe1.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.github.asne\asne-core\0.3.3\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e5d1cc975ceacc381f9e3d747132e0bccbd57765">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-1d43d06900fb49b5a1c64196b45ff5dd33904984.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.github.markushi\android-ui\1.2\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="96436aef5f48b09aca1e0183dfcd7782aa580bd6">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-ab952bc742c87392f0c5da2a2da807b0b1aa0e09.jar" />
+    </item>
+    <item
+        jar="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.8.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c0c912d58c9468b1f9d9769c8975afdf2c85d681">
+        <dex dex="C:\Users\sifiso\Documents\idc\BusinessCardsExchanger\app\build\intermediates\pre-dexed\debug\classes-7c05827d066b4d2b955887e41cb075ded67e134c.jar" />
     </item>
 
 </items>

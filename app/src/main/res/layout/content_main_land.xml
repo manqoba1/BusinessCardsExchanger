@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="codetribe.sifiso.com.businesscardsexchanger.MainLandActivity"
+    tools:showIn="@layout/activity_main_land">
+
+    <fragment
+        android:id="@+id/fragment_content"
+        android:name="codetribe.sifiso.com.bcelibrary.fragment.ContactListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_contact_list" />
+</RelativeLayout>

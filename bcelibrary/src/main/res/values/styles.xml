@@ -1,16 +1,55 @@
 <resources>
 
 
+    <style name="SmallText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/blue_gray_200</item>
+        <item name="android:fontFamily">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
-  <style name="SmallText" parent="TextAppearance.AppCompat">
-      <item name="android:textColor">@color/blue_gray_200</item>
-      <item name="android:fontFamily">bold</item>
-      <item name="android:textSize">14sp</item>
-  </style>
     <style name="FabMargin">
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:layout_marginBottom">0dp</item>
     </style>
+
+    <style name="TransparentCircleSmall" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:width">32dp</item>
+        <item name="android:height">32dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/xtransparent_black_small</item>
+
+    </style>
+
+    <style name="Title1TextStyleWhite" parent="@android:style/TextAppearance.Large">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Title3TextStyleBlue" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/blue_200</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="GrayMediumText" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/blue_200</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="Title2TextStyleWhile" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Title2TextStyleWhileSmall" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
