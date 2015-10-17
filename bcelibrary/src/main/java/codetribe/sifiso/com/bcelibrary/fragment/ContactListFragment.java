@@ -34,8 +34,7 @@ public class ContactListFragment extends Fragment implements PagerFragment {
     private RecyclerView lsCards;
     LocationAdapter locationAdapter;
     List<CaptionModel> mList;
-    TextView txtRadius, SI_count;
-    SeekBar seekBar;
+
     ContactListFragmentListener mListener;
 
     public static ContactListFragment instanceFragment() {
@@ -47,26 +46,7 @@ public class ContactListFragment extends Fragment implements PagerFragment {
         lsCards = (RecyclerView) view.findViewById(R.id.lsCards);
         lsCards.setLayoutManager(new LinearLayoutManager(mCtx));
         lsCards.addItemDecoration(new SpacesItemDecoration(4));
-        txtRadius = (TextView) view.findViewById(R.id.SI_radius);
-        seekBar = (SeekBar) view.findViewById(R.id.SI_seekBar);
-        SI_count = (TextView) view.findViewById(R.id.SI_count);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                txtRadius.setText("" + seekBar.getProgress());
-                mListener.onPassingRadius(seekBar.getProgress());
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
     }
 
@@ -79,7 +59,7 @@ public class ContactListFragment extends Fragment implements PagerFragment {
         Log.d("LOG", new Gson().toJson(list));
         if (view != null) {
             Log.d("LOG", new Gson().toJson(list));
-            SI_count.setText("" + list.size());
+
             locationAdapter = new LocationAdapter(mCtx, list, new LocationAdapter.LocationAdapterListeners() {
                 @Override
                 public void onMoreImages(CaptionModel locationModel) {

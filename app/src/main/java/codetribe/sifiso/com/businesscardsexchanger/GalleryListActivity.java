@@ -1,9 +1,12 @@
 package codetribe.sifiso.com.businesscardsexchanger;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -25,9 +28,12 @@ import java.util.List;
 
 import codetribe.sifiso.com.bcelibrary.Adapters.GalleryListAdapter;
 import codetribe.sifiso.com.bcelibrary.Models.CaptionModel;
-import codetribe.sifiso.com.bcelibrary.activities.MapsActivity;
+import codetribe.sifiso.com.bcelibrary.Models.ResponseModel;
 import codetribe.sifiso.com.bcelibrary.toolbox.BaseVolley;
+import codetribe.sifiso.com.bcelibrary.toolbox.WebCheck;
+import codetribe.sifiso.com.bcelibrary.toolbox.WebCheckResult;
 import codetribe.sifiso.com.bcelibrary.utils.DataUtil;
+import codetribe.sifiso.com.bcelibrary.utils.LocalStore;
 import codetribe.sifiso.com.bcelibrary.utils.SpacesItemDecoration;
 import codetribe.sifiso.com.bcelibrary.utils.Util;
 
@@ -63,9 +69,10 @@ public class GalleryListActivity extends AppCompatActivity {
             locationID = getIntent().getIntExtra("locationID", 1);
             accessToken = getIntent().getStringExtra("accessToken");
             mCaptionModel = getIntent().getParcelableExtra("caption");
-            getImageForTheLocation();
+
+            getCacheLocationData();
         }
-        locationID = getIntent().getIntExtra("locationID", 1);
+
         getSupportActionBar().setTitle(mCaptionModel.fullName);
         Log.d(LOG, "Location ID : " + locationID);
     }
@@ -89,33 +96,90 @@ public class GalleryListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_map) {
-            Intent intent = new Intent(GalleryListActivity.this, MapsActivity.class);
-            intent.putParcelableArrayListExtra("caption", (ArrayList<? extends Parcelable>) mList);
-            startActivity(intent);
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
+    private void getCacheLocationData() {
+        final WebCheckResult w = WebCheck.checkNetworkAvailability(mCtx);
+        LocalStore.getLocationDataByID(mCtx, locationID, LocalStore.CACHE_BY_ID, new LocalStore.LocalStoreListener() {
+            @Override
+            public void onFileDataDeserialized(final ResponseModel response) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (response != null) {
+                            mList = response.getCaptionModels();
+                            setRecycleViewList();
+                        }
+
+                        if (w.isWifiConnected()) {
+                            getImageForTheLocation();
+                            return;
+                            // getData();
+                        } else if (w.isMobileConnected()) {
+                            getImageForTheLocation();
+                            return;
+                        } else{
+                            if(response.getCaptionModels() == null) {
+                                showSettingDialog();
+                            }
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onDataCached(ResponseModel response) {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+    }
+    public void showSettingDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(GalleryListActivity.this);
+
+        builder.setTitle("Network settings");
+        builder.setMessage("No Image display due to network connectivity. Check your network status");
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
     private void getImageForTheLocation() {
         String url = Util.customFindByLocationID(locationID, accessToken).toString();
         setRefreshActionButtonState(true);
         try {
             BaseVolley.getRemoteData(url, mCtx, new BaseVolley.BohaVolleyListener() {
                 @Override
-                public void onResponseReceived(JSONObject response) {
+                public void onResponseReceived(JSONObject r) {
                     try {
                         setRefreshActionButtonState(false);
-                        if (response.getJSONObject("meta").getInt("code") <= 0) {
+                        if (r.getJSONObject("meta").getInt("code") <= 0) {
 
                             return;
                         }
 
                         mList = new ArrayList<CaptionModel>();
-                        Log.d(LOG, "Array Length: " + response.optJSONArray("data").length());
-                        for (int i = 0; i < response.optJSONArray("data").length(); i++) {
+                        Log.d(LOG, "Array Length: " + r.optJSONArray("data").length());
+                        for (int i = 0; i < r.optJSONArray("data").length(); i++) {
 
-                            JSONObject ja = response.optJSONArray("data").getJSONObject(i);
+                            JSONObject ja = r.optJSONArray("data").getJSONObject(i);
                             if (DataUtil.captionModel(ja) == null) {
                                 continue;
                             }
@@ -127,7 +191,27 @@ public class GalleryListActivity extends AppCompatActivity {
                             mList.add(DataUtil.captionModel(ja));
                         }
                         Log.d(LOG, "Array Length2: " + mList.size());
-                        setRecycleViewList();
+                        ResponseModel response = new ResponseModel();
+                        response.setCaptionModels(new ArrayList<CaptionModel>());
+                        response.setCaptionModels(mList);
+                        LocalStore.locationDataByID(mCtx, locationID, response, LocalStore.CACHE_BY_ID, new LocalStore.LocalStoreListener() {
+                            @Override
+                            public void onFileDataDeserialized(ResponseModel response) {
+
+                            }
+
+                            @Override
+                            public void onDataCached(ResponseModel response) {
+                                mList = response.getCaptionModels();
+                                setRecycleViewList();
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -144,15 +228,17 @@ public class GalleryListActivity extends AppCompatActivity {
     }
 
     private void setRecycleViewList() {
-        adapter = new GalleryListAdapter(mCtx, mList, new GalleryListAdapter.GalleryListAdapterListener() {
-            @Override
-            public void onFullScaleView(CaptionModel captionModel) {
-                Intent intent = new Intent(GalleryListActivity.this, FullViewActivity.class);
-                intent.putExtra("caption", captionModel);
-                startActivity(intent);
-            }
-        });
-        lsCards.setAdapter(adapter);
+        if (mList != null) {
+            adapter = new GalleryListAdapter(mCtx, mList, new GalleryListAdapter.GalleryListAdapterListener() {
+                @Override
+                public void onFullScaleView(CaptionModel captionModel) {
+                    Intent intent = new Intent(GalleryListActivity.this, FullViewActivity.class);
+                    intent.putExtra("caption", captionModel);
+                    startActivity(intent);
+                }
+            });
+            lsCards.setAdapter(adapter);
+        }
     }
 
     public void setRefreshActionButtonState(final boolean refreshing) {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -40,10 +43,14 @@ import java.util.Date;
 import java.util.List;
 
 import codetribe.sifiso.com.bcelibrary.Models.CaptionModel;
+import codetribe.sifiso.com.bcelibrary.Models.ResponseModel;
 import codetribe.sifiso.com.bcelibrary.fragment.ContactListFragment;
 import codetribe.sifiso.com.bcelibrary.toolbox.BaseVolley;
+import codetribe.sifiso.com.bcelibrary.toolbox.WebCheck;
+import codetribe.sifiso.com.bcelibrary.toolbox.WebCheckResult;
 import codetribe.sifiso.com.bcelibrary.utils.Constants;
 import codetribe.sifiso.com.bcelibrary.utils.DataUtil;
+import codetribe.sifiso.com.bcelibrary.utils.LocalStore;
 import codetribe.sifiso.com.bcelibrary.utils.Util;
 
 public class MainLandActivity extends AppCompatActivity implements LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ContactListFragment.ContactListFragmentListener {
@@ -61,6 +68,8 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
     InstagramSession mInstagramSession;
     Instagram mInstagram;
     InstagramUser mInstagramUser;
+    TextView txtRadius, SI_count;
+    SeekBar seekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +94,37 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
                             .setAction("Action", null).show();
                 }
             });
+
+            txtRadius = (TextView) findViewById(codetribe.sifiso.com.bcelibrary.R.id.SI_radius);
+            seekBar = (SeekBar) findViewById(codetribe.sifiso.com.bcelibrary.R.id.SI_seekBar);
+            SI_count = (TextView) findViewById(codetribe.sifiso.com.bcelibrary.R.id.SI_count);
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    txtRadius.setText("" + seekBar.getProgress());
+                    distance = seekBar.getProgress();
+                    getCacheData();
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
             setLocationMap();
+            if (savedInstanceState != null) {
+                location = savedInstanceState.getParcelable("location");
+                mList = savedInstanceState.getParcelableArrayList("captions");
+                setListOfLocation();
+                return;
+            }
+
         } else {
             setContentView(R.layout.activity_main_land_not);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -97,6 +136,15 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
                 }
             });
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable("location", location);
+        if (!mList.isEmpty()) {
+            outState.putParcelableArrayList("captions", (ArrayList<? extends Parcelable>) mList);
+        }
+        super.onSaveInstanceState(outState);
     }
 
     private void showToast(String text) {
@@ -125,6 +173,9 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_land_main, menu);
+        if (!mInstagramSession.isActive()) {
+            menu.clear();
+        }
         mMenu = menu;
         return true;
     }
@@ -133,7 +184,18 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            getLocations(distance);
+            getCacheData();
+        }
+        if (id == R.id.action_map) {
+            Intent intent = new Intent(MainLandActivity.this, MapsActivity.class);
+            intent.putParcelableArrayListExtra("caption", (ArrayList<? extends Parcelable>) mList);
+            startActivity(intent);
+        }
+        if (id == R.id.action_logout) {
+            mInstagramSession.reset();
+            finish();
+
+            startActivity(new Intent(MainLandActivity.this, MainLandActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -167,7 +229,7 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
                     + location.getLatitude() + " "
                     + location.getLongitude() + " acc: "
                     + location.getAccuracy());
-            getLocations(distance);
+            getCacheData();
         }
 
         locationRequest = LocationRequest.create();
@@ -181,12 +243,52 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
 
     }
 
+    private void getCacheData() {
+        final WebCheckResult w = WebCheck.checkNetworkAvailability(mCtx);
+        LocalStore.getCachedData(mCtx, LocalStore.CACHE_DATA, new LocalStore.LocalStoreListener() {
+            @Override
+            public void onFileDataDeserialized(final ResponseModel response) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (response != null) {
+                            mList = response.getCaptionModels();
+                            setListOfLocation();
+                        }
+
+                        if (w.isWifiConnected()) {
+                            getLocations(distance);
+                            return;
+                            // getData();
+                        } else if (w.isMobileConnected()) {
+                            getLocations(distance);
+                            return;
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onDataCached(ResponseModel response) {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
+    }
+
     @Override
     protected void onStart() {
         Log.e(LOG, "################ onStart .... connect API and location clients ");
         if (mInstagramSession.isActive()) {
             if (!mResolvingError) {  // more about this later
+
                 mGoogleApiClient.connect();
+
             }
         }
         super.onStart();
@@ -203,7 +305,7 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
         }
         if (location.getAccuracy() <= ACCURACY_LIMIT) {
             stopLocationUpdates();
-            getLocations(distance);
+            getCacheData();
         }
     }
 
@@ -265,7 +367,10 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
 
     private void setListOfLocation() {
         if (contactListFragment != null) {
-            contactListFragment.setList(mList);
+            if (mList != null) {
+                SI_count.setText("" + mList.size());
+                contactListFragment.setList(mList);
+            }
         }
     }
 
@@ -275,22 +380,43 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
         try {
             BaseVolley.getRemoteData(url, mCtx, new BaseVolley.BohaVolleyListener() {
                 @Override
-                public void onResponseReceived(JSONObject response) {
+                public void onResponseReceived(JSONObject r) {
                     try {
                         setRefreshActionButtonState(false);
-                        if (response.getJSONObject("meta").getInt("code") <= 0) {
+                        if (r.getJSONObject("meta").getInt("code") <= 0) {
 
                             return;
                         }
+
                         mList = new ArrayList<CaptionModel>();
-                        Log.d(LOG, "Array Length: " + response.getJSONArray("data").length());
-                        for (int i = 0; i < response.getJSONArray("data").length(); i++) {
+                        Log.d(LOG, "Array Length: " + r.getJSONArray("data").length());
+                        for (int i = 0; i < r.getJSONArray("data").length(); i++) {
                             //Log.d(LOG, new Gson().toJson(response.getJSONArray("data").getJSONObject(i)));
-                            JSONObject ja = response.getJSONArray("data").getJSONObject(i);
+                            JSONObject ja = r.getJSONArray("data").getJSONObject(i);
                             mList.add(DataUtil.captionModel(ja));
                         }
                         Log.d(LOG, "Array Length2: " + mList.size());
-                        setListOfLocation();
+                        ResponseModel response = new ResponseModel();
+                        response.setCaptionModels(new ArrayList<CaptionModel>());
+                        response.setCaptionModels(mList);
+                        LocalStore.cacheData(mCtx, response, LocalStore.CACHE_DATA, new LocalStore.LocalStoreListener() {
+                            @Override
+                            public void onFileDataDeserialized(ResponseModel response) {
+
+                            }
+
+                            @Override
+                            public void onDataCached(ResponseModel response) {
+                                mList = response.getCaptionModels();
+                                setListOfLocation();
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
+
                         //Log.d(LOG, new Gson().toJson(response));
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -313,7 +439,7 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
     @Override
     public void onPassingRadius(int radius) {
         distance = radius;
-        getLocations(distance);
+
     }
 
     @Override
@@ -321,7 +447,7 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
         Intent intent = new Intent(MainLandActivity.this, GalleryListActivity.class);
         intent.putExtra("locationID", captionModel.locationID);
         intent.putExtra("accessToken", mInstagramUser.accessToken);
-        intent.putExtra("caption",captionModel);
+        intent.putExtra("caption", captionModel);
         startActivity(intent);
     }
 

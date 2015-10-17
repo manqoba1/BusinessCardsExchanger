@@ -8,20 +8,13 @@
     tools:showIn="@layout/activity_main_land"
     tools:context="codetribe.sifiso.com.bcelibrary.fragment.ContactListFragment">
 
-    <RelativeLayout
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <include layout="@layout/search_layout"></include>
-    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lsCards"
         android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/top">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 

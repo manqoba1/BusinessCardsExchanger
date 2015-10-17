@@ -5,6 +5,7 @@
     <dimen name="mon_divider">4dp</dimen>
     <dimen name="mon_widest">72dp</dimen>
     <dimen name="mon_margin">16dp</dimen>
+    <dimen name="mon_margin_22">22dp</dimen>
     <dimen name="sas_padding">8dp</dimen>
     <dimen name="minimum_margin_sides">48dip</dimen>
     <dimen name="minimum_margin_top_bottom">24dip</dimen>

@@ -2,19 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/SLT_searchLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/SLT_hero"
         android:layout_width="match_parent"
         android:layout_height="@dimen/hero_image_length">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/back14" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,7 +15,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:padding="@dimen/mon_padding">
+            android:padding="@dimen/mon_padding"
+            android:id="@+id/relativeLayout">
 
             <TextView
                 android:id="@+id/SI_radius"
@@ -39,10 +33,26 @@
                 android:layout_height="wrap_content"
                 android:max="10000"
                 android:progress="20"
+
                 android:layout_toEndOf="@+id/SI_radius"
                 android:layout_toRightOf="@+id/SI_radius" />
 
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="set location radius"
+            android:id="@+id/textView5"
+            style="@style/Title2TextStyleWhileSmall"
+            android:layout_marginRight="48dp"
+            android:layout_marginEnd="38dp"
+            android:layout_alignTop="@+id/relativeLayout"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
     </RelativeLayout>
 
     <TextView
@@ -53,6 +63,13 @@
         android:layout_alignParentLeft="true"
         android:layout_margin="@dimen/mon_margin"
         android:text="00" />
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Locations found"
+        style="@style/Title2TextStyleWhileSmall"
+        android:id="@+id/textView4"
+        android:layout_marginTop="@dimen/mon_margin_22"
+android:layout_toRightOf="@+id/SI_count" />
 </RelativeLayout>
