@@ -48,6 +48,7 @@ public class GalleryListActivity extends AppCompatActivity {
     CaptionModel mCaptionModel;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class GalleryListActivity extends AppCompatActivity {
 
             getCacheLocationData();
         }
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(mCaptionModel.fullName);
         Log.d(LOG, "Location ID : " + locationID);
     }
@@ -96,7 +97,9 @@ public class GalleryListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-
+        if (id == android.R.id.home) {
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -120,8 +123,8 @@ public class GalleryListActivity extends AppCompatActivity {
                         } else if (w.isMobileConnected()) {
                             getImageForTheLocation();
                             return;
-                        } else{
-                            if(response.getCaptionModels() == null) {
+                        } else {
+                            if (response.getCaptionModels() == null) {
                                 showSettingDialog();
                             }
                         }
@@ -140,6 +143,7 @@ public class GalleryListActivity extends AppCompatActivity {
             }
         });
     }
+
     public void showSettingDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GalleryListActivity.this);
 
@@ -161,6 +165,7 @@ public class GalleryListActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
     private void getImageForTheLocation() {
         String url = Util.customFindByLocationID(locationID, accessToken).toString();
         setRefreshActionButtonState(true);

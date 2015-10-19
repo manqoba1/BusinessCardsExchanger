@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -37,6 +38,7 @@ public class FullViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         mCtx = getApplicationContext();
         mGpsLocation = new GPSLocation(mCtx, FullViewActivity.this);
@@ -46,15 +48,25 @@ public class FullViewActivity extends AppCompatActivity {
         } else {
             mCaption = getIntent().getParcelableExtra("caption");
         }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(mCaption.fullName);
         setFields();
-       // Flickr flickr =new Flickr("");
+        // Flickr flickr =new Flickr("");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putParcelable("caption", mCaption);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setFields() {

@@ -2,8 +2,10 @@ package codetribe.sifiso.com.businesscardsexchanger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,17 +32,22 @@ import java.util.List;
 
 import codetribe.sifiso.com.bcelibrary.Models.CaptionModel;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     List<CaptionModel> mCaptionModels;
     private HashMap<Marker, CaptionModel> mMarkersHashMap;
     List<Marker> markers = new ArrayList<Marker>();
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMarkersHashMap = new HashMap<Marker, CaptionModel>();
         mCaptionModels = getIntent().getParcelableArrayListExtra("caption");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -49,6 +56,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -134,7 +149,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             FSC_time.setText(dateTime.toString("HH:mm"));
             FSC_message.setText(myMarker.textMessage);
             ImageLoader.getInstance().displayImage(myMarker.imageUrlStnd, FSC_image);
-
+            getSupportActionBar().setTitle(myMarker.fullName);
             return v;
         }
     }
