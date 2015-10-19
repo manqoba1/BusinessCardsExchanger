@@ -1,12 +1,12 @@
 package codetribe.sifiso.com.businesscardsexchanger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,11 +57,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         setCaptionOnMap();
     }
-static String LOG = MapsActivity.class.getSimpleName();
+
+    static String LOG = MapsActivity.class.getSimpleName();
+
     private void setCaptionOnMap() {
         mMap.clear();
         for (CaptionModel cm : mCaptionModels) {
-            Log.d(LOG,new Gson().toJson(cm));
+            Log.d(LOG, new Gson().toJson(cm));
             BitmapDescriptor desc = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
             MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(cm.latitude, cm.longitude)).icon(desc)
                     .snippet(cm.textMessage);
@@ -72,7 +74,12 @@ static String LOG = MapsActivity.class.getSimpleName();
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
-                    Toast.makeText(getApplicationContext(),"Clickable",Toast.LENGTH_SHORT).show();
+                    CaptionModel model = mMarkersHashMap.get(marker);
+
+                    Intent intent = new Intent(MapsActivity.this, FullViewActivity.class);
+                    intent.putExtra("caption", model);
+
+                    startActivity(intent);
                 }
             });
             mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
