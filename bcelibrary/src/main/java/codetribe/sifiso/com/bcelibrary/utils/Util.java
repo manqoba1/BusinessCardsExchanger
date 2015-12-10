@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import org.joda.time.DateTime;
+
+import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.Random;
 
 import codetribe.sifiso.com.bcelibrary.R;
@@ -75,7 +79,19 @@ public class Util {
 
         return sb;
     }
+    public static StringBuilder customSearchSpecials(Double latitude, Double longitude, String accessToken, int radius) {
 
+        DateTime date = new DateTime(new Date().getTime());
+        StringBuilder sb = new StringBuilder(
+                "https://api.foursquare.com/v2/specials/search?");
+        sb.append("ll=" + latitude+","+longitude);
+        if (radius > 0) {
+            sb.append("&limit=" + radius);
+        }
+        sb.append("&oauth_token=" + accessToken);
+        sb.append("&v=" + date.toString("YYYYMMdd"));
+        return sb;
+    }
     public static StringBuilder customFindByLocationID(int id, String accessToken) {
 
         StringBuilder sb = new StringBuilder(
@@ -237,7 +253,18 @@ public class Util {
         });
         return animator;
     }
+    static final DecimalFormat df = new DecimalFormat("###,###,###,###,##0.0");
 
+    public static String getDistance(float mf) {
+        if (mf < 1000) {
+            return df.format(mf) + " metres";
+        }
+        Double m = Double.parseDouble("" + mf);
+        Double n = m / 1000;
+
+        return df.format(n) + " kilometres";
+
+    }
     public interface UtilAnimationListener {
         public void onAnimationEnded();
     }

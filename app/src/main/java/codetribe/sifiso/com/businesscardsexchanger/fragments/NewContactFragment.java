@@ -1,4 +1,4 @@
-package codetribe.sifiso.com.bcelibrary.fragment;
+package codetribe.sifiso.com.businesscardsexchanger.fragments;
 
 
 import android.content.Context;

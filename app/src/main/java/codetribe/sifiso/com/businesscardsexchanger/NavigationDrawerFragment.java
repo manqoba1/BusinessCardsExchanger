@@ -51,8 +51,8 @@ public class NavigationDrawerFragment extends Fragment {
 
     public static List<DrawerItem> getDrawerData() {
         List<DrawerItem> drawerItems = new ArrayList<>();
-        int[] icons = {android.R.drawable.ic_menu_gallery};
-        String[] titles = {mCtx.getString(R.string.instagram_list)};
+        int[] icons = {android.R.drawable.ic_menu_gallery,android.R.drawable.ic_menu_gallery};
+        String[] titles = {mCtx.getString(R.string.instagram_list),mCtx.getString(R.string.four_square_specials)};
         for (int i = 0; i < icons.length && i < titles.length; i++) {
             DrawerItem item = new DrawerItem(icons[i], titles[i]);
             drawerItems.add(item);
@@ -98,6 +98,8 @@ public class NavigationDrawerFragment extends Fragment {
             public void onDrawerItemClick(int position) {
                 listener.onItemClick(position);
                 mDrawerLayout.closeDrawers();
+               // mDrawerLayout.sets
+
             }
         });
         ImageView drawerImage = (ImageView) view.findViewById(R.id.drawer_image);

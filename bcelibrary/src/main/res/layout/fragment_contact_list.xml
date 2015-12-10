@@ -1,20 +1,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main_land"
-    tools:context="codetribe.sifiso.com.bcelibrary.fragment.ContactListFragment">
-
+    tools:context="codetribe.sifiso.com.businesscardsexchanger.fragments.ContactListFragment"
+    tools:showIn="@layout/activity_main_land">
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lsCards"
-        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
     </android.support.v7.widget.RecyclerView>
 

@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="20"
+                android:text="120"
                 android:textColor="@color/white" />
 
             <SeekBar
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="10000"
-                android:progress="20"
+                android:progress="120"
 
                 android:layout_toEndOf="@+id/SI_radius"
                 android:layout_toRightOf="@+id/SI_radius" />

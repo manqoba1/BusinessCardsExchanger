@@ -1,0 +1,156 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/FSC_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+
+        android:src="@drawable/back12" />
+
+
+    <LinearLayout
+        android:id="@+id/FSC_caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_black"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_below="@+id/FSC_image"
+        android:layout_alignRight="@+id/relativeLayout2"
+        android:layout_alignEnd="@+id/relativeLayout2"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/FSC_name"
+            style="@style/Title2TextStyleWhile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/FSC_message"
+            style="@style/Title2TextStyleWhileSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/FSC_name"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/green_500" />
+
+        <TextView
+            android:id="@+id/FSC_fine_print"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/FSC_checkins"
+                style="@style/Title2TextStyleWhileSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
+                android:drawableRight="@drawable/ic_location_on_white_24dp"
+                android:text="100"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/FSC_users"
+                style="@style/Title2TextStyleWhileSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
+                android:drawableRight="@drawable/ic_people_white_24dp"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/FSC_tips"
+                style="@style/Title2TextStyleWhileSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_action_tips"
+                android:text="0"
+                android:layout_marginRight="25dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <ImageView
+                android:id="@+id/FSC_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/xred_small_circle"
+                android:src="@android:drawable/ic_menu_directions"
+                android:layout_below="@+id/FSC_cat_name"
+
+                android:layout_alignLeft="@+id/relativeLayout2"
+                android:layout_alignStart="@+id/relativeLayout2" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/xspeacial_red_shape">
+
+        <TextView
+            android:id="@+id/FSC_special"
+            style="@style/Title2TextStyleWhile14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            android:rotation="360"
+            android:text="Special"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/blue_gray_300" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/FSC_venue_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="4dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toLeftOf="@+id/relativeLayout2"
+        android:layout_toStartOf="@+id/relativeLayout2" />
+
+
+
+    <TextView
+        android:id="@+id/FSC_cat_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/FSC_venue_name"
+        android:padding="4dp"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

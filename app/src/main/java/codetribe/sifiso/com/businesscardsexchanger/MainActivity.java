@@ -1,129 +1,152 @@
 package codetribe.sifiso.com.businesscardsexchanger;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import codetribe.sifiso.com.bcelibrary.Models.CaptionModel;
-import codetribe.sifiso.com.bcelibrary.fragment.ContactListFragment;
-import codetribe.sifiso.com.bcelibrary.fragment.NewContactFragment;
-import codetribe.sifiso.com.bcelibrary.utils.PagerFragment;
-import it.neokree.materialtabs.MaterialTab;
-import it.neokree.materialtabs.MaterialTabHost;
-import it.neokree.materialtabs.MaterialTabListener;
+import codetribe.sifiso.com.businesscardsexchanger.fragments.ContactListFragment;
+import codetribe.sifiso.com.businesscardsexchanger.fragments.FourSquareFragment;
 
-public class MainActivity extends AppCompatActivity implements ContactListFragment.ContactListFragmentListener, NavigationDrawerFragment.NavigationDrawerFragmentListener, MaterialTabListener {
+public class MainActivity extends AppCompatActivity implements ContactListFragment.ContactListFragmentListener, NavigationDrawerFragment.NavigationDrawerFragmentListener {
     Toolbar toolbar;
-    ViewPager mPager;
-    MaterialTabHost mTaps;
     NavigationDrawerFragment drawerFragment;
-    List<PagerFragment> pagerFragmentList;
+    static Menu mMenu;
+
+    static RelativeLayout top;
     ContactListFragment contactListFragment;
-    NewContactFragment newContactFragment;
-    PagerAdapter pagerAdapter;
-
-
+    FourSquareFragment fourSquareFragment;
     private Context mCtx;
+    private int position;
+
+
+    TextView txtRadius;
+    static TextView SI_count;
+    SeekBar seekBar;
+    int distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setContentView(R.layout.activity_drawer);
+        mCtx = getApplicationContext();
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         drawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUpDrawer(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        top = (RelativeLayout) findViewById(R.id.top);
         mCtx = getApplicationContext();
-        mPager = (ViewPager) findViewById(R.id.mPager);
-        mTaps = (MaterialTabHost) this.findViewById(R.id.materialTabHost);
+
+        txtRadius = (TextView) findViewById(codetribe.sifiso.com.bcelibrary.R.id.SI_radius);
+        seekBar = (SeekBar) findViewById(codetribe.sifiso.com.bcelibrary.R.id.SI_seekBar);
+        SI_count = (TextView) findViewById(codetribe.sifiso.com.bcelibrary.R.id.SI_count);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                txtRadius.setText("" + seekBar.getProgress());
+
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                distance = seekBar.getProgress();
+                if (contactListFragment != null) {
+                    contactListFragment.getDataByRadius(distance);
+                }
+                if (fourSquareFragment != null) {
+                    fourSquareFragment.getDataByRadius(distance);
+                }
+
+            }
+        });
+        // mPager = (ViewPager) findViewById(R.id.mPager);
+        //mTaps = (MaterialTabHost) this.findViewById(R.id.materialTabHost);
         //setLocationMap();
-        build();
-
-    }
-
-
-    public void build() {
-        pagerFragmentList = new ArrayList<>();
-        newContactFragment = new NewContactFragment();
-        contactListFragment = new ContactListFragment();
-        // pagerFragmentList.add(newContactFragment);
-
-        pagerFragmentList.add(contactListFragment);
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(pagerAdapter);
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // when user do a swipe the selected tab change
-                mTaps.setSelectedNavigationItem(position);
-            }
-        });
-        for (int i = 0; i < pagerAdapter.getCount(); i++) {
-            mTaps.addTab(
-                    mTaps.newTab()
-                            .setIcon(getIcon(i))
-                            .setTabListener(this)
-            );
+        //  build();
+        if (savedInstanceState != null) {
+            position = savedInstanceState.getInt("Opened");
+        } else {
+            position = 0;
         }
+
+        setFragment(position);
     }
 
-    private Drawable getIcon(int i) {
-        return ContextCompat.getDrawable(getApplicationContext(), pagerAdapter.icon[i]);
+    public static void setToolbarVisibility(boolean isOK) {
+        if (isOK) {
+            top.setVisibility(View.VISIBLE);
+//            mMenu.clear();
+        } else {
+
+            top.setVisibility(View.GONE);
+        }
+
     }
-   /* private void build() {
-        pagerFragmentList = new ArrayList<>();
-        newContactFragment = new NewContactFragment();
-        contactListFragment = new ContactListFragment();
-        pagerFragmentList.add(newContactFragment);
-        pagerFragmentList.add(contactListFragment);
-        pagerAdapter=new PagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(pagerAdapter);
-        mTaps.setDistributeEvenly(true);
 
-        mTaps.setBackgroundColor(getResources().getColor(R.color.cyan_500));
-        mTaps.setSelectedIndicatorColors(getResources().getColor(R.color.pink_300));
-        mTaps.setCustomTabView(R.layout.custom_tab_view, R.id.tabText);
-        mTaps.setViewPager(mPager);
-        setTitle(pagerAdapter.tabText[0]);
-        mTaps.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    public void setFragment(int position) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        switch (position) {
+            case ISTAGRAM_FRAGMENT:
+                fourSquareFragment = null;
+                contactListFragment = new ContactListFragment();
 
-            }
+                ft.replace(R.id.content, contactListFragment);
+                ft.commit();
 
-            @Override
-            public void onPageSelected(int position) {
-                setTitle(pagerAdapter.tabText[position]);
-            }
+                setTitle(mCtx.getString(R.string.instagram_list));
+                break;
+            case FOURSQUARE_SPECIALS_FRAGMENT:
+                contactListFragment = null;
+                fourSquareFragment = new FourSquareFragment();
+                ft.replace(R.id.content, fourSquareFragment);
+                ft.commit();
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+                setTitle(mCtx.getString(R.string.four_square_specials));
+                break;
+            default:
 
-            }
-        });
-    }*/
+                break;
+        }
+
+       /* if (contactListFragment != null) {
+            contactListFragment.getDataByRadius(distance);
+        }
+        if (fourSquareFragment != null) {
+
+        }*/
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("Opened", position);
+        super.onSaveInstanceState(outState);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        mMenu = menu;
         return true;
     }
 
@@ -145,69 +168,48 @@ public class MainActivity extends AppCompatActivity implements ContactListFragme
 
     @Override
     public void onItemClick(int position) {
-        mPager.setCurrentItem(position);
+        setFragment(position);
+        //   mPager.setCurrentItem(position);
 //        setTitle(pagerAdapter.tabText[position]);
     }
 
-    @Override
-    public void onTabSelected(MaterialTab tab) {
-        mPager.setCurrentItem(tab.getPosition());
-    }
 
-    @Override
-    public void onTabReselected(MaterialTab materialTab) {
+    boolean isBusy;
 
-    }
 
-    @Override
-    public void onTabUnselected(MaterialTab materialTab) {
+    private static final int ISTAGRAM_FRAGMENT = 0;
+    private static final int FOURSQUARE_SPECIALS_FRAGMENT = 1;
+    static String LOG = MainActivity.class.getSimpleName();
 
-    }
+    public static void setCountField(int count) {
 
-    @Override
-    public void onPassingRadius(int radius) {
+        SI_count.setText("" + count);
 
     }
+
+    public static void setRefreshActionButtonState(final boolean refreshing) {
+        if (mMenu != null) {
+            final MenuItem refreshItem = mMenu.findItem(R.id.action_refresh);
+            if (refreshItem != null) {
+                if (refreshing) {
+                    refreshItem.setActionView(R.layout.action_bar_progess);
+                } else {
+                    refreshItem.setActionView(null);
+                }
+            }
+        }
+    }
+
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+    }
+
 
     @Override
     public void onStartGalleryActivity(CaptionModel locationModel) {
 
     }
-
-
-    class PagerAdapter extends FragmentStatePagerAdapter {
-        public int icon[] = {android.R.drawable.ic_menu_gallery};
-        public String[] tabText = {getString(R.string.instagram_list)};
-
-        public PagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return (Fragment) pagerFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return pagerFragmentList.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            Drawable drawer = ContextCompat.getDrawable(getApplicationContext(), icon[position]);
-            drawer.setBounds(0, 0, 72, 72);
-            ImageSpan imageSpan = new ImageSpan(drawer);
-            SpannableString spannableString = new SpannableString(" ");
-            spannableString.setSpan(imageSpan, 0, spannableString.length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return spannableString;
-        }
-    }
-
-    boolean isBusy;
-
-
-    static String LOG = MainActivity.class.getSimpleName();
-
 }

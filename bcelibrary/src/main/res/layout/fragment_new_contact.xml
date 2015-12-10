@@ -6,7 +6,7 @@
     android:background="@color/white"
 
     android:padding="8dp"
-    tools:context="codetribe.sifiso.com.bcelibrary.fragment.NewContactFragment">
+    tools:context="codetribe.sifiso.com.businesscardsexchanger.fragments.NewContactFragment">
 
     <android.support.v7.widget.CardView
         android:id="@+id/bsCard"

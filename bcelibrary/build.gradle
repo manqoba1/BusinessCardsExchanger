@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -52,6 +52,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:7.8.0'
     compile 'joda-time:joda-time:2.3'
     compile 'com.github.asne:asne-instagram:0.3.3'
-    //compile 'com.foursquare:foursquare-android-oauth:1.0.3'
+   // compile 'com.foursquare:foursquare-android-oauth:1.0.3'
     //compile 'com.foursquare:foursquare-android-nativeoauth-lib:1.0.1'
 }

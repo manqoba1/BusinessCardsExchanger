@@ -1,5 +1,6 @@
 package codetribe.sifiso.com.bcelibrary.utils;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,7 +25,7 @@ public final class GPSTracker implements LocationListener {
     // flag for GPS status
     boolean canGetLocation = false;
 
-    Location location; // location
+    Location mLocation; // location
     double latitude; // latitude
     double longitude; // longitude
 
@@ -36,10 +37,13 @@ public final class GPSTracker implements LocationListener {
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
+    GPSTrackerListener mListener;
 
-    public GPSTracker(Context context) {
+    public GPSTracker(Context context,GPSTrackerListener mListener) {
         this.mContext = context;
+        this.mListener=mListener;
         getLocation();
+        mListener.onLocationFound(mLocation);
     }
 
     /**
@@ -69,36 +73,36 @@ public final class GPSTracker implements LocationListener {
             } else {
                 this.canGetLocation = true;
                 if (isNetworkEnabled) {
-                    location=null;
+                    mLocation=null;
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
                             MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                     Log.d("Network", "Network");
                     if (locationManager != null) {
-                        location = locationManager
+                        mLocation = locationManager
                                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        if (location != null) {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
+                        if (mLocation != null) {
+                            latitude = mLocation.getLatitude();
+                            longitude = mLocation.getLongitude();
                         }
                     }
                 }
                 // if GPS Enabled get lat/long using GPS Services
                 if (isGPSEnabled) {
-                    location=null;
-                    if (location == null) {
+                    mLocation=null;
+                    if (mLocation == null) {
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                         Log.d("GPS Enabled", "GPS Enabled");
                         if (locationManager != null) {
-                            location = locationManager
+                            mLocation = locationManager
                                     .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            if (location != null) {
-                                latitude = location.getLatitude();
-                                longitude = location.getLongitude();
+                            if (mLocation != null) {
+                                latitude = mLocation.getLatitude();
+                                longitude = mLocation.getLongitude();
                             }
                         }
                     }
@@ -109,7 +113,7 @@ public final class GPSTracker implements LocationListener {
             e.printStackTrace();
         }
 
-        return location;
+        return mLocation;
     }
 
     /**
@@ -126,8 +130,8 @@ public final class GPSTracker implements LocationListener {
      * Function to get latitude
      * */
     public double getLatitude() {
-        if (location != null) {
-            latitude = location.getLatitude();
+        if (mLocation != null) {
+            latitude = mLocation.getLatitude();
         }
 
         // return latitude
@@ -138,8 +142,8 @@ public final class GPSTracker implements LocationListener {
      * Function to get longitude
      * */
     public double getLongitude() {
-        if (location != null) {
-            longitude = location.getLongitude();
+        if (mLocation != null) {
+            longitude = mLocation.getLongitude();
         }
 
         // return longitude
@@ -190,11 +194,49 @@ public final class GPSTracker implements LocationListener {
         // Showing Alert Message
         alertDialog.show();
     }
-
+    static final int ACCURACY_LIMIT = 30;
+    static String LOG = GPSTracker.class.getSimpleName();
     @Override
     public void onLocationChanged(Location location) {
-    }
+        Log.i(LOG, "####### onLocationChanged " + location.getAccuracy());
+        if (location == null) {
+            //Util.showToast(ctx, "Please check your GPS connectivity, switch it on if off");
+            showSettingDialog();
+            return;
+        }
+        mLocation = location;
 
+        if (location.getAccuracy() <= ACCURACY_LIMIT) {
+            Log.w(LOG, "## onLocationChanged ....lastLocation: "
+                    + location.getLatitude() + " "
+                    + location.getLongitude() + " acc: "
+                    + location.getAccuracy());
+            mLocation = location;
+            mListener.onLocationFound(location);
+            stopUsingGPS();
+
+        }
+    }
+    public void showSettingDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        builder.setTitle("GPS settings");
+        builder.setMessage("Please check GPS enabled. Go to settings menu, to switch it on to search for location.");
+        builder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                mContext.startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
     @Override
     public void onProviderDisabled(String provider) {
     }
@@ -207,4 +249,7 @@ public final class GPSTracker implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
 
+    public interface GPSTrackerListener{
+        public void onLocationFound(Location location);
+    }
 }

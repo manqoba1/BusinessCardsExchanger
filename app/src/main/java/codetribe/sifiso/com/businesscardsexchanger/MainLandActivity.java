@@ -44,7 +44,6 @@ import java.util.List;
 
 import codetribe.sifiso.com.bcelibrary.Models.CaptionModel;
 import codetribe.sifiso.com.bcelibrary.Models.ResponseModel;
-import codetribe.sifiso.com.bcelibrary.fragment.ContactListFragment;
 import codetribe.sifiso.com.bcelibrary.toolbox.BaseVolley;
 import codetribe.sifiso.com.bcelibrary.toolbox.WebCheck;
 import codetribe.sifiso.com.bcelibrary.toolbox.WebCheckResult;
@@ -52,6 +51,7 @@ import codetribe.sifiso.com.bcelibrary.utils.Constants;
 import codetribe.sifiso.com.bcelibrary.utils.DataUtil;
 import codetribe.sifiso.com.bcelibrary.utils.LocalStore;
 import codetribe.sifiso.com.bcelibrary.utils.Util;
+import codetribe.sifiso.com.businesscardsexchanger.fragments.ContactListFragment;
 
 public class MainLandActivity extends AppCompatActivity implements LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ContactListFragment.ContactListFragmentListener {
     GoogleApiClient mGoogleApiClient;
@@ -75,7 +75,7 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCtx = getApplicationContext();
-        mInstagram = new Instagram(this, Constants.CLIENT_ID, Constants.CLIENT_SECRET, Constants.REDIRECT_URI);
+        mInstagram = new Instagram(this, Constants.INSTAGRAM_CLIENT_ID, Constants.INSTAGRAM_CLIENT_SECRET, Constants.REDIRECT_URI);
         mInstagramSession = mInstagram.getSession();
 
         if (mInstagramSession.isActive()) {
@@ -84,7 +84,7 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
             setSupportActionBar(toolbar);
             mInstagramUser = mInstagramSession.getUser();
 
-            contactListFragment = (ContactListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_content);
+           // contactListFragment = (ContactListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_content);
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
@@ -281,6 +281,65 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
         });
     }
 
+    public void getLocations(int radius) {
+        setRefreshActionButtonState(true);
+        String url = Util.customSearch(location.getLatitude(), location.getLongitude(), mInstagramUser.accessToken, radius).toString();
+        try {
+            BaseVolley.getRemoteData(url, mCtx, new BaseVolley.BohaVolleyListener() {
+                @Override
+                public void onResponseReceived(JSONObject r) {
+                    try {
+                        setRefreshActionButtonState(false);
+                        if (r.getJSONObject("meta").getInt("code") <= 0) {
+
+                            return;
+                        }
+
+                        mList = new ArrayList<CaptionModel>();
+                        Log.d(LOG, "Array Length: " + r.getJSONArray("data").length());
+                        for (int i = 0; i < r.getJSONArray("data").length(); i++) {
+                            //Log.d(LOG, new Gson().toJson(response.getJSONArray("data").getJSONObject(i)));
+                            JSONObject ja = r.getJSONArray("data").getJSONObject(i);
+                            mList.add(DataUtil.captionModel(ja));
+                        }
+                        Log.d(LOG, "Array Length2: " + mList.size());
+                        ResponseModel response = new ResponseModel();
+                        response.setCaptionModels(new ArrayList<CaptionModel>());
+                        response.setCaptionModels(mList);
+                        LocalStore.cacheData(mCtx, response, LocalStore.CACHE_DATA, new LocalStore.LocalStoreListener() {
+                            @Override
+                            public void onFileDataDeserialized(ResponseModel response) {
+
+                            }
+
+                            @Override
+                            public void onDataCached(ResponseModel response) {
+                                mList = response.getCaptionModels();
+                                setListOfLocation();
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
+
+                        //Log.d(LOG, new Gson().toJson(response));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onVolleyError(VolleyError error) {
+                    setRefreshActionButtonState(false);
+                }
+            });
+        } catch (Exception e) {
+
+        }
+    }
+
     @Override
     protected void onStart() {
         Log.e(LOG, "################ onStart .... connect API and location clients ");
@@ -374,73 +433,10 @@ public class MainLandActivity extends AppCompatActivity implements LocationListe
         }
     }
 
-    private void getLocations(int radius) {
-        setRefreshActionButtonState(true);
-        String url = Util.customSearch(location.getLatitude(), location.getLongitude(), mInstagramUser.accessToken, radius).toString();
-        try {
-            BaseVolley.getRemoteData(url, mCtx, new BaseVolley.BohaVolleyListener() {
-                @Override
-                public void onResponseReceived(JSONObject r) {
-                    try {
-                        setRefreshActionButtonState(false);
-                        if (r.getJSONObject("meta").getInt("code") <= 0) {
-
-                            return;
-                        }
-
-                        mList = new ArrayList<CaptionModel>();
-                        Log.d(LOG, "Array Length: " + r.getJSONArray("data").length());
-                        for (int i = 0; i < r.getJSONArray("data").length(); i++) {
-                            //Log.d(LOG, new Gson().toJson(response.getJSONArray("data").getJSONObject(i)));
-                            JSONObject ja = r.getJSONArray("data").getJSONObject(i);
-                            mList.add(DataUtil.captionModel(ja));
-                        }
-                        Log.d(LOG, "Array Length2: " + mList.size());
-                        ResponseModel response = new ResponseModel();
-                        response.setCaptionModels(new ArrayList<CaptionModel>());
-                        response.setCaptionModels(mList);
-                        LocalStore.cacheData(mCtx, response, LocalStore.CACHE_DATA, new LocalStore.LocalStoreListener() {
-                            @Override
-                            public void onFileDataDeserialized(ResponseModel response) {
-
-                            }
-
-                            @Override
-                            public void onDataCached(ResponseModel response) {
-                                mList = response.getCaptionModels();
-                                setListOfLocation();
-                            }
-
-                            @Override
-                            public void onError() {
-
-                            }
-                        });
-
-                        //Log.d(LOG, new Gson().toJson(response));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onVolleyError(VolleyError error) {
-                    setRefreshActionButtonState(false);
-                }
-            });
-        } catch (Exception e) {
-
-        }
-    }
 
     static String LOG = MainLandActivity.class.getSimpleName();
     List<CaptionModel> mList = Collections.emptyList();
 
-    @Override
-    public void onPassingRadius(int radius) {
-        distance = radius;
-
-    }
 
     @Override
     public void onStartGalleryActivity(CaptionModel captionModel) {
